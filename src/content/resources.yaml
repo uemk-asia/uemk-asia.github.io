@@ -1,0 +1,236 @@
+# Learning resources
+# ---------------------------------------------------------------------------
+# Add one entry per resource. Entries appear on /resources/ grouped by
+# category, in the order they are listed here.
+#
+# Fields:
+#   id          (required) unique, lowercase, e.g. concrete-problems
+#   title       (required)
+#   category    (required) one of:
+#                 Introduction to AI Safety | Technical AI Alignment
+#                 Interpretability and Evaluations | AI Governance
+#                 Research Papers | External Learning Opportunities
+#   description (required) one or two neutral sentences
+#   url         (required) full external link — run `npm run check:links`
+#   level         Beginner | Intermediate | Advanced   (optional)
+#   format        e.g. Course, Paper, Book, Website, Video, Program, Tool
+#   source        author or organization (optional)
+#
+# Inclusion here is a learning recommendation only. It does not imply any
+# partnership or endorsement between UEMK ASIA and the linked organization.
+
+# --- Introduction to AI Safety ---------------------------------------------
+
+- id: aisafety-info
+  title: AISafety.info
+  category: Introduction to AI Safety
+  description: An accessible collection of questions and answers covering the core ideas and debates in AI safety.
+  url: https://aisafety.info/
+  level: Beginner
+  format: Website
+
+- id: aisafety-book
+  title: Introduction to AI Safety, Ethics, and Society
+  category: Introduction to AI Safety
+  description: A free textbook surveying risks from advanced AI alongside relevant topics in machine learning, ethics, and governance.
+  url: https://www.aisafetybook.com/
+  level: Beginner
+  format: Book
+  source: Dan Hendrycks / Center for AI Safety
+
+- id: robert-miles
+  title: Robert Miles AI Safety
+  category: Introduction to AI Safety
+  description: Short explanatory videos on alignment concepts such as specification gaming, mesa-optimization, and corrigibility.
+  url: https://www.youtube.com/@RobertMilesAI
+  level: Beginner
+  format: Video
+
+- id: aisafety-com
+  title: AISafety.com
+  category: Introduction to AI Safety
+  description: A directory of courses, communities, funding, and organizations for people getting started in the field.
+  url: https://aisafety.com/
+  level: Beginner
+  format: Website
+
+# --- Technical AI Alignment ------------------------------------------------
+
+- id: alignment-forum
+  title: AI Alignment Forum
+  category: Technical AI Alignment
+  description: A forum for technical research discussion on AI alignment, including curated sequences for newcomers.
+  url: https://www.alignmentforum.org/
+  level: Intermediate
+  format: Website
+
+- id: arena
+  title: ARENA (Alignment Research Engineer Accelerator)
+  category: Technical AI Alignment
+  description: Open curriculum materials with coding exercises on transformers, interpretability, reinforcement learning, and evaluations.
+  url: https://www.arena.education/
+  level: Intermediate
+  format: Course
+
+# --- Interpretability and Evaluations --------------------------------------
+
+- id: nanda-getting-started
+  title: Getting Started in Mechanistic Interpretability
+  category: Interpretability and Evaluations
+  description: A practical guide to the background, tools, and first projects for learning mechanistic interpretability.
+  url: https://www.neelnanda.io/mechanistic-interpretability/getting-started
+  level: Intermediate
+  format: Guide
+  source: Neel Nanda
+
+- id: transformer-circuits
+  title: Transformer Circuits Thread
+  category: Interpretability and Evaluations
+  description: A series of research articles on reverse-engineering the internal mechanisms of transformer language models.
+  url: https://transformer-circuits.pub/
+  level: Advanced
+  format: Articles
+
+- id: transformerlens
+  title: TransformerLens
+  category: Interpretability and Evaluations
+  description: An open-source Python library for inspecting and intervening on the activations of transformer models.
+  url: https://github.com/TransformerLensOrg/TransformerLens
+  level: Intermediate
+  format: Tool
+
+- id: inspect
+  title: Inspect
+  category: Interpretability and Evaluations
+  description: An open-source framework for building and running evaluations of large language models.
+  url: https://inspect.aisi.org.uk/
+  level: Intermediate
+  format: Tool
+  source: UK AI Security Institute
+
+# --- AI Governance ---------------------------------------------------------
+
+- id: international-report
+  title: International AI Safety Report
+  category: AI Governance
+  description: A report synthesizing the scientific evidence on the capabilities and risks of general-purpose AI, written with contributors from many countries.
+  url: https://internationalaisafetyreport.org/
+  level: Beginner
+  format: Report
+
+- id: govai
+  title: Centre for the Governance of AI (GovAI)
+  category: AI Governance
+  description: Research and publications on policy, institutions, and decision-making related to advanced AI.
+  url: https://www.governance.ai/
+  level: Intermediate
+  format: Website
+
+- id: 80k-ai
+  title: Preventing an AI-related catastrophe
+  category: AI Governance
+  description: A long-form overview of arguments for prioritizing risks from advanced AI, with notes on technical and policy career paths.
+  url: https://80000hours.org/problem-profiles/artificial-intelligence/
+  level: Beginner
+  format: Article
+  source: 80,000 Hours
+
+# --- Research Papers -------------------------------------------------------
+
+- id: concrete-problems
+  title: Concrete Problems in AI Safety
+  category: Research Papers
+  description: Amodei et al. (2016). Frames five practical research problems, including reward hacking, safe exploration, and robustness to distributional shift.
+  url: https://arxiv.org/abs/1606.06565
+  level: Beginner
+  format: Paper
+
+- id: unsolved-problems
+  title: Unsolved Problems in ML Safety
+  category: Research Papers
+  description: Hendrycks et al. (2021). Organizes open problems into robustness, monitoring, alignment, and systemic safety.
+  url: https://arxiv.org/abs/2109.13916
+  level: Intermediate
+  format: Paper
+
+- id: rlhf-preferences
+  title: Deep Reinforcement Learning from Human Preferences
+  category: Research Papers
+  description: Christiano et al. (2017). Introduces learning a reward model from human comparisons of agent behavior.
+  url: https://arxiv.org/abs/1706.03741
+  level: Intermediate
+  format: Paper
+
+- id: instructgpt
+  title: Training Language Models to Follow Instructions with Human Feedback
+  category: Research Papers
+  description: Ouyang et al. (2022). Applies reinforcement learning from human feedback to fine-tune large language models.
+  url: https://arxiv.org/abs/2203.02155
+  level: Intermediate
+  format: Paper
+
+- id: constitutional-ai
+  title: "Constitutional AI: Harmlessness from AI Feedback"
+  category: Research Papers
+  description: Bai et al. (2022). Trains a model to be harmless using a set of written principles and AI-generated feedback.
+  url: https://arxiv.org/abs/2212.08073
+  level: Intermediate
+  format: Paper
+
+- id: learned-optimization
+  title: Risks from Learned Optimization in Advanced Machine Learning Systems
+  category: Research Papers
+  description: Hubinger et al. (2019). Introduces mesa-optimization and the inner alignment problem.
+  url: https://arxiv.org/abs/1906.01820
+  level: Advanced
+  format: Paper
+
+- id: zoom-in
+  title: "Zoom In: An Introduction to Circuits"
+  category: Research Papers
+  description: Olah et al. (2020). Argues that neural networks can be understood by studying features and the circuits connecting them.
+  url: https://distill.pub/2020/circuits/zoom-in/
+  level: Intermediate
+  format: Paper
+
+- id: extreme-risks-evals
+  title: Model Evaluation for Extreme Risks
+  category: Research Papers
+  description: Shevlane et al. (2023). Discusses how evaluations for dangerous capabilities and alignment can inform AI development and deployment decisions.
+  url: https://arxiv.org/abs/2305.15324
+  level: Intermediate
+  format: Paper
+
+# --- External Learning Opportunities ----------------------------------------
+
+- id: bluedot
+  title: BlueDot Impact
+  category: External Learning Opportunities
+  description: Runs free, part-time online courses on AI alignment and AI governance with facilitated discussion groups.
+  url: https://bluedot.org/
+  level: Beginner
+  format: Course
+
+- id: mats
+  title: MATS
+  category: External Learning Opportunities
+  description: A research program that pairs scholars with mentors working on AI alignment, interpretability, and governance.
+  url: https://www.matsprogram.org/
+  level: Advanced
+  format: Program
+
+- id: spar
+  title: SPAR (Supervised Program for Alignment Research)
+  category: External Learning Opportunities
+  description: A part-time, remote program in which students and early-career researchers work on AI safety projects with mentors.
+  url: https://sparai.org/
+  level: Intermediate
+  format: Program
+
+- id: ai-safety-camp
+  title: AI Safety Camp
+  category: External Learning Opportunities
+  description: An online program where participants join small teams to work on AI safety research projects.
+  url: https://www.aisafety.camp/
+  level: Intermediate
+  format: Program

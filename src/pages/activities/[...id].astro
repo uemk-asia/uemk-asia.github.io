@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import { formatDateRange } from '../../lib/activities';
+export async function getStaticPaths() {
+  return (await getCollection('activities')).map((activity) => ({ params: { id: activity.id }, props: { activity } }));
+}
+const { activity } = Astro.props;
+const { title, summary, status, type, date, endDate, location, registrationUrl } = activity.data;
+const when = formatDateRange(date, endDate);
+const { Content } = await render(activity);
+---
+<BaseLayout title={title} description={summary}>
+  <article class="container-page py-16 sm:py-20">
+    <a class="link text-sm" href="/activities/">← All activities</a>
+    <div class="mt-8 flex flex-wrap items-center gap-3"><StatusBadge status={status} /><span class="eyebrow">{type}</span></div>
+    <h1 class="mt-5 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
+    <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{summary}</p>
+    {(when || location) && <dl class="mt-8 flex flex-wrap gap-x-12 gap-y-4 border-y border-border py-5 text-sm">{when && <div><dt class="font-semibold">Date</dt><dd class="mt-1 text-muted"><time datetime={date?.toISOString().slice(0, 10)}>{when}</time></dd></div>}{location && <div><dt class="font-semibold">Location or format</dt><dd class="mt-1 text-muted">{location}</dd></div>}</dl>}
+    <div class="prose-body mt-10"><Content /></div>
+    {registrationUrl && (status === 'upcoming' || status === 'ongoing') && <a class="mt-8 inline-flex rounded-md bg-accent px-5 py-3 font-medium text-accent-fg hover:bg-accent-hover" href={registrationUrl} target="_blank" rel="noopener noreferrer">Register for this activity<span class="sr-only"> (opens in a new tab)</span> ↗</a>}
+  </article>
+</BaseLayout>

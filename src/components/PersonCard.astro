@@ -1,0 +1,63 @@
+---
+import Avatar from './Avatar.astro';
+import { affiliationYears, educationYears, isAtHostInstitution, profileUrl, sortedAffiliations, sortedEducation, type Person } from '../lib/people';
+
+interface Props {
+  person: Person;
+}
+
+const { person } = Astro.props;
+const { name, role } = person.data;
+
+// Cards stay short: only entries at UEM Kolkata are shown (affiliations first,
+// then education, newest first); the full history is on the profile page.
+// Someone with no UEM Kolkata entry shows their most recent entry instead.
+const allRows = [
+  ...sortedAffiliations(person).map((a) => ({
+    host: isAtHostInstitution(a),
+    place: a.institution,
+    detail: [a.position, affiliationYears(a)].filter(Boolean).join(' | '),
+    subdetail: a.department,
+  })),
+  ...sortedEducation(person).map((e) => ({
+    host: isAtHostInstitution(e),
+    place: e.institution,
+    detail: [e.degree, educationYears(e)].filter(Boolean).join(' | '),
+    subdetail: e.field,
+  })),
+];
+const hostRows = allRows.filter((row) => row.host);
+const rows = hostRows.length > 0 ? hostRows : allRows.slice(0, 1);
+---
+
+<!-- The name link stretches over the whole card, so the photo and card are clickable
+     while keyboard users get a single, clearly labelled tab stop. -->
+<article
+  class="group relative flex gap-5 rounded-lg border border-border p-5 transition-colors hover:border-accent focus-within:border-accent sm:p-6"
+>
+  <Avatar person={person} size={88} />
+  <div class="min-w-0">
+    <h3 class="text-xl leading-snug font-semibold">
+      <a
+        href={profileUrl(person)}
+        class="after:absolute after:inset-0 after:rounded-lg after:content-[''] group-hover:text-accent-text group-hover:underline focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-accent"
+      >
+        {name}
+      </a>
+    </h3>
+    <p class="mt-1 text-sm font-medium text-accent-text">{role}</p>
+    {
+      rows.length > 0 && (
+        <ul class="mt-3 space-y-2 text-sm">
+          {rows.map((row) => (
+            <li>
+              <span class="block text-fg">{row.place}</span>
+              {row.detail && <span class="block text-muted">{row.detail}</span>}
+              {row.subdetail && <span class="block text-muted">{row.subdetail}</span>}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</article>

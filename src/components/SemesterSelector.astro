@@ -1,0 +1,148 @@
+---
+/**
+ * Year + semester switcher.
+ * - A year dropdown (years come from the semesters' `year` field; the first
+ *   year in the data is selected by default).
+ * - Semester controls for the selected year: ARIA tabs on larger screens and
+ *   a native <select> on small screens. Both control the panels on the page
+ *   that have `data-semester-panel` and an id matching the semester id.
+ * Without JavaScript, the controls are hidden and all semesters are shown.
+ */
+import type { Semester } from '../lib/data';
+
+interface Props {
+  semesters: Pick<Semester, 'id' | 'label' | 'year'>[];
+}
+
+const { semesters } = Astro.props;
+const years = [...new Set(semesters.map((s) => s.year))];
+const defaultYear = years[0];
+const first = semesters.find((s) => s.year === defaultYear)?.id;
+---
+
+<div data-semester-selector class="semester-controls space-y-5">
+  <div class="max-w-xs">
+    <label for="year-select" class="block text-sm font-medium text-fg">Year</label>
+    <select
+      id="year-select"
+      data-year-select
+      class="mt-2 block w-full rounded-md border border-border bg-bg px-3 py-2.5 text-base text-fg"
+    >
+      {years.map((year) => <option value={String(year)} selected={year === defaultYear}>{year}</option>)}
+    </select>
+  </div>
+
+  <!-- Small screens: semester dropdown -->
+  <div class="sm:hidden">
+    <label for="semester-select" class="block text-sm font-medium text-fg">Semester</label>
+    <select
+      id="semester-select"
+      data-semester-select
+      class="mt-2 block w-full rounded-md border border-border bg-bg px-3 py-2.5 text-base text-fg"
+    >
+      {
+        semesters.map((s) => (
+          <option value={s.id} data-year={String(s.year)} hidden={s.year !== defaultYear} disabled={s.year !== defaultYear}>
+            {s.label}
+          </option>
+        ))
+      }
+    </select>
+  </div>
+
+  <!-- Larger screens: semester tabs -->
+  <div role="tablist" aria-label="Semesters" class="hidden flex-wrap gap-2 sm:flex">
+    {
+      semesters.map((s) => (
+        <button
+          type="button"
+          role="tab"
+          id={`tab-${s.id}`}
+          aria-controls={s.id}
+          aria-selected={s.id === first ? 'true' : 'false'}
+          tabindex={s.id === first ? 0 : -1}
+          data-semester-tab={s.id}
+          data-year={String(s.year)}
+          hidden={s.year !== defaultYear}
+          class="rounded-md border border-border bg-bg px-4 py-2 text-sm font-medium text-muted transition-colors hover:border-accent hover:text-fg aria-selected:border-accent aria-selected:bg-accent aria-selected:text-accent-fg"
+        >
+          {s.label}
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<noscript>
+  <style>
+    .semester-controls { display: none; }
+    [data-semester-panel][hidden] { display: block !important; }
+  </style>
+</noscript>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-semester-selector]');
+  if (root) {
+    const allTabs = [...root.querySelectorAll<HTMLButtonElement>('[data-semester-tab]')];
+    const select = root.querySelector<HTMLSelectElement>('[data-semester-select]');
+    const yearSelect = root.querySelector<HTMLSelectElement>('[data-year-select]');
+    const panels = [...document.querySelectorAll<HTMLElement>('[data-semester-panel]')];
+    const ids = panels.map((panel) => panel.id);
+    const yearOf = (id: string) => allTabs.find((tab) => tab.dataset.semesterTab === id)?.dataset.year;
+    const visibleTabs = () => allTabs.filter((tab) => !tab.hidden);
+
+    // Show only the semester controls that belong to the given year.
+    const showYear = (year: string) => {
+      if (yearSelect) yearSelect.value = year;
+      for (const tab of allTabs) tab.hidden = tab.dataset.year !== year;
+      for (const option of select?.options ?? []) {
+        const other = option.dataset.year !== year;
+        option.hidden = other;
+        option.disabled = other;
+      }
+    };
+
+    const activate = (id: string, { focus = false, updateUrl = true } = {}) => {
+      if (!ids.includes(id)) return;
+      const year = yearOf(id);
+      if (year && yearSelect?.value !== year) showYear(year);
+      for (const panel of panels) panel.hidden = panel.id !== id;
+      for (const tab of allTabs) {
+        const selected = tab.dataset.semesterTab === id;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        if (selected && focus) tab.focus();
+      }
+      if (select) select.value = id;
+      // Keep the choice in the URL so it can be shared, without adding history entries.
+      if (updateUrl) history.replaceState(null, '', `#${id}`);
+    };
+
+    for (const tab of allTabs) {
+      tab.addEventListener('click', () => activate(tab.dataset.semesterTab!));
+      tab.addEventListener('keydown', (event) => {
+        const tabs = visibleTabs();
+        const index = tabs.indexOf(tab);
+        const last = tabs.length - 1;
+        const next = { ArrowRight: index === last ? 0 : index + 1, ArrowLeft: index === 0 ? last : index - 1, Home: 0, End: last }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        activate(tabs[next].dataset.semesterTab!, { focus: true });
+      });
+    }
+    select?.addEventListener('change', () => activate(select.value));
+    yearSelect?.addEventListener('change', () => {
+      showYear(yearSelect.value);
+      const firstTab = visibleTabs()[0];
+      if (firstTab) activate(firstTab.dataset.semesterTab!);
+    });
+
+    // Open the semester named in the URL (e.g. /curriculum/#semester-2), if any.
+    const fromHash = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      if (ids.includes(id)) activate(id, { updateUrl: false });
+    };
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
+  }
+</script>

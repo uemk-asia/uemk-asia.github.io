@@ -1,0 +1,32 @@
+{
+  "pageTitle": "People",
+  "introduction": "Meet the people behind UEMK ASIA.",
+  "sections": [
+    {
+      "id": "faculty-advisors",
+      "title": "Faculty Advisors",
+      "description": "",
+      "showInFooter": false,
+      "members": [
+        "subhalaxmi-chakraborty"
+      ]
+    },
+    {
+      "id": "founding-members",
+      "title": "Founding Members",
+      "description": "",
+      "members": [
+        "debmalya-pal"
+      ]
+    },
+    {
+      "id": "core-organizers",
+      "title": "Core Organizers",
+      "description": "",
+      "members": [
+        "ashna-islam",
+        "dipankar-bera"
+      ]
+    }
+  ]
+}

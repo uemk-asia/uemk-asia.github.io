@@ -1,0 +1,432 @@
+[
+  {
+    "id": "start-here",
+    "title": "Start Here",
+    "description": "Begin with an overview, then explore a few different perspectives before choosing a research direction.",
+    "resources": [
+      {
+        "id": "aisafety-info",
+        "title": "AISafety.info",
+        "description": "An accessible collection of questions and answers covering the core ideas and debates in AI safety.",
+        "url": "https://aisafety.info/",
+        "level": "Beginner",
+        "format": "Introductory reference"
+      },
+      {
+        "id": "80k-readings",
+        "title": "11 Essential Readings on AI Safety",
+        "description": "A reading list on AI risk and alignment from 80,000 Hours.",
+        "url": "https://80000hours.org/articles/11-essential-resources-ai-risk/",
+        "level": "Beginner",
+        "format": "Reading list",
+        "source": "80,000 Hours"
+      },
+      {
+        "id": "robert-miles",
+        "title": "Robert Miles — AI Safety",
+        "description": "Short explanatory videos on alignment concepts such as specification gaming, mesa-optimization, and corrigibility.",
+        "url": "https://www.youtube.com/@RobertMilesAI",
+        "level": "Beginner",
+        "format": "Videos"
+      },
+      {
+        "id": "aisafety-book",
+        "title": "Introduction to AI Safety, Ethics, and Society",
+        "description": "A free textbook surveying risks from advanced AI alongside relevant topics in machine learning, ethics, and governance.",
+        "url": "https://www.aisafetybook.com/",
+        "level": "Beginner",
+        "format": "Book",
+        "source": "Dan Hendrycks / Center for AI Safety"
+      }
+    ]
+  },
+  {
+    "id": "technical-research-directions",
+    "title": "Technical Research Directions",
+    "description": "Explore approaches to understanding, evaluating, and guiding AI systems.",
+    "groups": [
+      {
+        "id": "mechanistic-interpretability",
+        "title": "Mechanistic Interpretability",
+        "description": "Understanding learned internal representations, features, and computational mechanisms in neural networks, especially transformer language models.",
+        "resources": [
+          {
+            "id": "nanda-getting-started",
+            "title": "Getting Started in Mechanistic Interpretability",
+            "description": "A practical guide to the background, tools, and first projects for learning mechanistic interpretability.",
+            "url": "https://www.neelnanda.io/mechanistic-interpretability/getting-started",
+            "level": "Intermediate",
+            "format": "Guide",
+            "source": "Neel Nanda"
+          },
+          {
+            "id": "nanda-concrete-steps",
+            "title": "Concrete Steps to Get Started",
+            "description": "An older practical guide to transformer interpretability; the author marks it as deprecated in favor of the newer guide.",
+            "url": "https://www.neelnanda.io/mechanistic-interpretability/getting-started-old",
+            "level": "Intermediate",
+            "format": "Guide",
+            "source": "Neel Nanda"
+          },
+          {
+            "id": "transformer-circuits",
+            "title": "Transformer Circuits Thread",
+            "description": "A series of research articles on reverse-engineering the internal mechanisms of transformer language models.",
+            "url": "https://transformer-circuits.pub/",
+            "level": "Advanced",
+            "format": "Research articles"
+          },
+          {
+            "id": "transformerlens",
+            "title": "TransformerLens",
+            "description": "An open-source Python library for inspecting and intervening on the activations of transformer models.",
+            "url": "https://github.com/TransformerLensOrg/TransformerLens",
+            "level": "Intermediate",
+            "format": "Tool"
+          },
+          {
+            "id": "zoom-in",
+            "title": "Zoom In: An Introduction to Circuits",
+            "description": "Olah et al. (2020). Argues that neural networks can be understood by studying features and the circuits connecting them.",
+            "url": "https://distill.pub/2020/circuits/zoom-in/",
+            "level": "Intermediate",
+            "format": "Research paper"
+          }
+        ],
+        "related": [
+          "neel-nanda"
+        ]
+      },
+      {
+        "id": "ai-evaluations-auditing",
+        "title": "AI Evaluations & Auditing",
+        "description": "Evaluating AI capabilities, dangerous behavior, reliability, model monitoring, and alignment failures.",
+        "resources": [
+          {
+            "id": "inspect",
+            "title": "Inspect",
+            "description": "An open-source framework for building and running evaluations of large language models.",
+            "url": "https://inspect.aisi.org.uk/",
+            "level": "Intermediate",
+            "format": "Tool",
+            "source": "UK AI Security Institute"
+          },
+          {
+            "id": "extreme-risks-evals",
+            "title": "Model Evaluation for Extreme Risks",
+            "description": "Shevlane et al. (2023). Discusses how evaluations for dangerous capabilities and alignment can inform AI development and deployment decisions.",
+            "url": "https://arxiv.org/abs/2305.15324",
+            "level": "Intermediate",
+            "format": "Research paper"
+          },
+          {
+            "id": "concrete-problems",
+            "title": "Concrete Problems in AI Safety",
+            "description": "Amodei et al. (2016). Frames five practical research problems, including reward hacking, safe exploration, and robustness to distributional shift.",
+            "url": "https://arxiv.org/abs/1606.06565",
+            "level": "Beginner",
+            "format": "Research paper"
+          },
+          {
+            "id": "unsolved-problems",
+            "title": "Unsolved Problems in ML Safety",
+            "description": "Hendrycks et al. (2021). Organizes open problems into robustness, monitoring, alignment, and systemic safety.",
+            "url": "https://arxiv.org/abs/2109.13916",
+            "level": "Intermediate",
+            "format": "Research paper"
+          }
+        ],
+        "related": [
+          "metr",
+          "arena"
+        ]
+      },
+      {
+        "id": "ai-control-agentic-misalignment",
+        "title": "AI Control & Agentic Misalignment",
+        "description": "Research on preventing harmful behavior from potentially misaligned AI systems, including monitoring, oversight, and strategic deception.",
+        "resources": [
+          {
+            "id": "redwood-ai-control",
+            "title": "AI Control",
+            "description": "Research on safeguards against potentially misaligned AI systems.",
+            "url": "https://www.redwoodresearch.org/research/ai-control",
+            "level": "Advanced",
+            "format": "Research",
+            "source": "Redwood Research",
+            "featured": true
+          },
+          {
+            "id": "learned-optimization",
+            "title": "Risks from Learned Optimization in Advanced Machine Learning Systems",
+            "description": "Hubinger et al. (2019). Introduces mesa-optimization and the inner alignment problem.",
+            "url": "https://arxiv.org/abs/1906.01820",
+            "level": "Advanced",
+            "format": "Research paper"
+          },
+          {
+            "id": "alignment-faking",
+            "title": "Alignment Faking in Large Language Models",
+            "description": "An empirical study of behavior that differs when a model believes it is being trained versus unmonitored.",
+            "url": "https://www.anthropic.com/research/alignment-faking",
+            "level": "Advanced",
+            "format": "Research paper",
+            "source": "Anthropic and Redwood Research"
+          }
+        ],
+        "related": [
+          "anthropic-alignment",
+          "apollo"
+        ]
+      },
+      {
+        "id": "alignment-methods-oversight",
+        "title": "Alignment Methods & Scalable Oversight",
+        "description": "Techniques for training and supervising AI systems, including human feedback, AI feedback, preference learning, and oversight of increasingly capable models.",
+        "resources": [
+          {
+            "id": "constitutional-ai",
+            "title": "Constitutional AI: Harmlessness from AI Feedback",
+            "description": "Bai et al. (2022). Trains a model to be harmless using a set of written principles and AI-generated feedback.",
+            "url": "https://arxiv.org/abs/2212.08073",
+            "level": "Intermediate",
+            "format": "Research paper"
+          },
+          {
+            "id": "instructgpt",
+            "title": "Training Language Models to Follow Instructions with Human Feedback",
+            "description": "Ouyang et al. (2022). Applies reinforcement learning from human feedback to fine-tune large language models.",
+            "url": "https://arxiv.org/abs/2203.02155",
+            "level": "Intermediate",
+            "format": "Research paper"
+          },
+          {
+            "id": "rlhf-preferences",
+            "title": "Deep Reinforcement Learning from Human Preferences",
+            "description": "Christiano et al. (2017). Introduces learning a reward model from human comparisons of agent behavior.",
+            "url": "https://arxiv.org/abs/1706.03741",
+            "level": "Intermediate",
+            "format": "Research paper"
+          }
+        ],
+        "related": [
+          "arena",
+          "bluedot"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "research-organizations-blogs",
+    "title": "Research Organizations & Blogs",
+    "description": "Research groups and writers publishing work on AI safety. Inclusion does not imply affiliation with UEMK ASIA.",
+    "resources": [
+      {
+        "id": "anthropic-research",
+        "title": "Anthropic Research",
+        "description": "Research on alignment, interpretability, model evaluations, and safety.",
+        "url": "https://www.anthropic.com/research",
+        "level": "Intermediate",
+        "format": "Research",
+        "source": "Anthropic"
+      },
+      {
+        "id": "anthropic-alignment",
+        "title": "Anthropic Alignment Science Blog",
+        "description": "Empirical research on misalignment, auditing, evaluations, and oversight.",
+        "url": "https://alignment.anthropic.com/",
+        "level": "Advanced",
+        "format": "Research blog",
+        "source": "Anthropic"
+      },
+      {
+        "id": "redwood-research",
+        "title": "Redwood Research",
+        "description": "Research on AI control, adversarial training, and alignment.",
+        "url": "https://www.redwoodresearch.org/research",
+        "level": "Advanced",
+        "format": "Research",
+        "source": "Redwood Research"
+      },
+      {
+        "id": "neel-nanda",
+        "title": "Neel Nanda — Mechanistic Interpretability",
+        "description": "Technical guides, research explanations, and projects on mechanistic interpretability.",
+        "url": "https://www.neelnanda.io/mechanistic-interpretability",
+        "level": "Intermediate",
+        "format": "Research blog",
+        "source": "Neel Nanda"
+      },
+      {
+        "id": "metr",
+        "title": "METR — Research",
+        "description": "Research on AI capabilities, autonomy evaluations, monitoring, and risk assessment.",
+        "url": "https://metr.org/research/",
+        "level": "Advanced",
+        "format": "Research",
+        "source": "METR"
+      },
+      {
+        "id": "apollo",
+        "title": "Apollo Research",
+        "description": "Research on scheming, strategic deception, and monitoring in AI systems.",
+        "url": "https://www.apolloresearch.ai/",
+        "level": "Advanced",
+        "format": "Research",
+        "source": "Apollo Research"
+      },
+      {
+        "id": "alignment-forum",
+        "title": "AI Alignment Forum",
+        "description": "A forum for technical research discussion on AI alignment, including curated sequences for newcomers.",
+        "url": "https://www.alignmentforum.org/",
+        "level": "Intermediate",
+        "format": "Research forum"
+      }
+    ]
+  },
+  {
+    "id": "ai-governance-policy",
+    "title": "AI Governance & Policy",
+    "groups": [
+      {
+        "id": "governance-research",
+        "title": "Governance Research",
+        "description": "Reports and research on evidence, policy, and institutions.",
+        "resources": [
+          {
+            "id": "international-report",
+            "title": "International AI Safety Report",
+            "description": "A report synthesizing the scientific evidence on the capabilities and risks of general-purpose AI, written with contributors from many countries.",
+            "url": "https://internationalaisafetyreport.org/",
+            "level": "Beginner",
+            "format": "Report"
+          },
+          {
+            "id": "govai",
+            "title": "Centre for the Governance of AI (GovAI)",
+            "description": "Research and publications on policy, institutions, and decision-making related to advanced AI.",
+            "url": "https://www.governance.ai/",
+            "level": "Intermediate",
+            "format": "Research"
+          }
+        ]
+      },
+      {
+        "id": "career-guidance",
+        "title": "Career Guidance",
+        "description": "Perspectives on research and careers for reducing risks from AI.",
+        "resources": [
+          {
+            "id": "80k-technical",
+            "title": "AI Safety Technical Research",
+            "description": "An overview of technical AI safety research as a career path.",
+            "url": "https://80000hours.org/career-reviews/ai-safety-technical-research/",
+            "level": "Beginner",
+            "format": "Career guide",
+            "source": "80,000 Hours"
+          },
+          {
+            "id": "80k-work-ai-risks",
+            "title": "How to Work on Reducing AI Risks",
+            "description": "Career guidance for people interested in reducing risks from advanced AI.",
+            "url": "https://80000hours.org/ai/",
+            "level": "Beginner",
+            "format": "Career guide",
+            "source": "80,000 Hours"
+          },
+          {
+            "id": "80k-three-months",
+            "title": "How to Get into AI Safety in Three Months",
+            "description": "Advice on building skills and exploring AI safety work.",
+            "url": "https://80000hours.org/2026/09/how-to-get-into-ai-safety-in-three-months/",
+            "level": "Beginner",
+            "format": "Career guide",
+            "source": "80,000 Hours"
+          },
+          {
+            "id": "80k-ai",
+            "title": "Preventing an AI-related catastrophe",
+            "description": "A long-form overview of arguments for prioritizing risks from advanced AI, with notes on technical and policy career paths.",
+            "url": "https://80000hours.org/problem-profiles/artificial-intelligence/",
+            "level": "Beginner",
+            "format": "Career and research overview",
+            "source": "80,000 Hours"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "courses-fellowships",
+    "title": "Courses & Fellowships",
+    "description": "External learning opportunities and research programs. Check current application cycles, eligibility, and formats on the program websites.",
+    "groups": [
+      {
+        "id": "structured-courses",
+        "title": "Structured Courses",
+        "description": "Curricula for independent or structured study.",
+        "resources": [
+          {
+            "id": "arena",
+            "title": "ARENA Curriculum",
+            "description": "Technical AI safety exercises covering interpretability, reinforcement learning, evaluations, and alignment.",
+            "url": "https://www.arena.education/curriculum",
+            "level": "Intermediate",
+            "format": "Course",
+            "featured": true
+          },
+          {
+            "id": "bluedot",
+            "title": "BlueDot Impact — AI Alignment",
+            "description": "A structured introductory curriculum on AI alignment.",
+            "url": "https://bluedot.org/courses/alignment",
+            "level": "Beginner",
+            "format": "Course",
+            "featured": true
+          }
+        ]
+      },
+      {
+        "id": "research-fellowships-programs",
+        "title": "Research Fellowships & Programs",
+        "description": "Programs are independently administered; check the current application cycle and eligibility.",
+        "resources": [
+          {
+            "id": "mats",
+            "title": "MATS",
+            "description": "Research mentorship and fellowship programs. Check the current application cycle.",
+            "url": "https://www.matsprogram.org/apply",
+            "level": "Advanced",
+            "format": "Fellowship"
+          },
+          {
+            "id": "spar",
+            "title": "SPAR (Supervised Program for Alignment Research)",
+            "description": "Remote mentorship-based projects in AI safety and related areas. Check the current application cycle.",
+            "url": "https://www.sparai.org/",
+            "level": "Intermediate",
+            "format": "Fellowship"
+          },
+          {
+            "id": "ai-safety-camp",
+            "title": "AI Safety Camp",
+            "description": "Collaborative AI safety research projects. Check the current application cycle.",
+            "url": "https://www.aisafety.camp/",
+            "level": "Intermediate",
+            "format": "Program"
+          },
+          {
+            "id": "anthropic-fellows",
+            "title": "Anthropic Fellows Program",
+            "description": "Mentored empirical AI safety research. Check the current application cycle; this page describes the 2026 cohorts.",
+            "url": "https://alignment.anthropic.com/2025/anthropic-fellows-program-2026/",
+            "level": "Advanced",
+            "format": "Fellowship",
+            "source": "Anthropic"
+          }
+        ]
+      }
+    ]
+  }
+]

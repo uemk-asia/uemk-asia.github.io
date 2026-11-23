@@ -1,0 +1,31 @@
+---
+/**
+ * Typographic identity for UEMK ASIA, with an optional approved logo.
+ */
+import { site } from '../config/site';
+
+interface Props {
+  /** Show the full name beneath the wordmark. */
+  showFullName?: boolean;
+}
+
+const { showFullName = true } = Astro.props;
+---
+
+<span class="inline-flex items-center gap-3">
+  {
+    site.logo && (
+      <img src={site.logo} alt="" width="36" height="36" class="h-9 w-9 object-contain" />
+    )
+  }
+  <span class="flex flex-col leading-none">
+    <span class="text-[0.95rem] font-semibold tracking-[0.18em] text-fg">
+      UEMK <span class="text-accent-text">ASIA</span>
+    </span>
+    {
+      showFullName && (
+        <span class="mt-1 text-[0.625rem] tracking-wide text-muted sm:text-[0.7rem]">{site.fullName}</span>
+      )
+    }
+  </span>
+</span>

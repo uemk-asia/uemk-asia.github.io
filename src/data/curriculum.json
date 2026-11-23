@@ -1,0 +1,602 @@
+{
+  "pageTitle": "AI Safety Curriculum",
+  "description": "A structured learning pathway covering the foundations, technical methods, and research directions of AI safety and alignment.",
+  "notice": "This is a draft learning pathway for self-study and reading groups. It is not an official university course, does not carry academic credit, and may change as the initiative develops.",
+  "semesters": [
+    {
+      "id": "semester-1",
+      "year": 2027,
+      "label": "Semester - Spring 27",
+      "title": "Foundations of AI Safety: From Zero to Breadth",
+      "description": "A first semester for students with little or no background in AI safety. It starts from the basics of neural networks and builds a broad map of the field: why advanced AI could be risky, how modern models are trained, and the main research agendas (interpretability, oversight, evaluations, robustness, control and governance). By the end, students should have the vocabulary and context to read research, join discussions and apply for summer research projects anywhere in the world.",
+      "dates": "Monday 11 January – Friday 28 May 2027 (20 weeks), with preparation in December 2026 – early January 2027",
+      "schedule": [
+        {
+          "title": "Weekly technical discussion",
+          "frequency": "Every week",
+          "duration": "1 hour",
+          "description": "Discussion of the current module's readings and exercises. Come having done the core readings."
+        },
+        {
+          "title": "Guest speaker",
+          "frequency": "Once a month",
+          "duration": "1 hour (additional)",
+          "description": "A researcher or practitioner talks about their work and career path, followed by Q&A. Speakers will be announced."
+        },
+        {
+          "title": "Hands-on workshop",
+          "frequency": "Once a month, on a weekend",
+          "duration": "2–3 hours",
+          "description": "A guided coding session using the ARENA curriculum. Bring a laptop; a free Google Colab account is enough."
+        },
+        {
+          "title": "BlueDot Technical AI Safety course",
+          "frequency": "Once during the semester",
+          "duration": "About 30 hours: 6 weeks part-time or 6 days intensive",
+          "description": "Every participant completes one cohort of BlueDot Impact's Technical AI Safety course during the semester, ideally alongside Modules 3–5 (February–March). Check bluedot.org for current cohort dates and application deadlines."
+        }
+      ],
+      "scheduleNote": "Specific days and times are to be announced. Week dates are approximate and will be adjusted around university exams and holidays.",
+      "preparation": {
+        "title": "Before the semester",
+        "timing": "December 2026 – early January 2027",
+        "description": "Complete the neural network refresher before the first meeting. The AGI Strategy course is recommended preparation: it gives the big picture the semester builds on.",
+        "modules": [
+          {
+            "id": "prep-neural-network-refresher",
+            "title": "Neural network refresher",
+            "badge": "Prerequisite",
+            "description": "Enough deep learning to follow the semester: what a neural network is, how it is trained, and how to run a small model in PyTorch. No prior AI experience is assumed; basic Python and school-level mathematics are enough to start.",
+            "topics": [
+              "Neurons, layers and activation functions",
+              "Loss functions, gradient descent and backpropagation",
+              "Tensors and basic linear algebra for deep learning",
+              "Training and evaluating a small network in PyTorch"
+            ],
+            "readings": [
+              {
+                "title": "Neural Networks (video series)",
+                "author": "3Blue1Brown",
+                "url": "https://www.3blue1brown.com/topics/neural-networks",
+                "note": "Start here: a visual introduction to networks, gradient descent and backpropagation."
+              },
+              {
+                "title": "Neural Networks: Zero to Hero (first lecture, micrograd)",
+                "author": "Andrej Karpathy",
+                "url": "https://karpathy.ai/zero-to-hero.html",
+                "note": "Build backpropagation from scratch in Python."
+              },
+              {
+                "title": "ARENA 0.0 — Prerequisites",
+                "author": "ARENA",
+                "url": "https://learn.arena.education/chapter0_fundamentals/00_prereqs/",
+                "note": "PyTorch basics, einops and tensor manipulation."
+              }
+            ],
+            "assignments": [
+              {
+                "title": "Train your first network",
+                "description": "Work through ARENA 0.0 and train a small classifier (for example on MNIST). Note anything that confused you and bring it to the first meeting.",
+                "url": "https://learn.arena.education/chapter0_fundamentals/00_prereqs/"
+              }
+            ],
+            "resources": [
+              {
+                "title": "ARENA 0.2 — CNNs & ResNets",
+                "author": "ARENA",
+                "url": "https://learn.arena.education/chapter0_fundamentals/02_cnns/",
+                "note": "Optional extra practice."
+              },
+              {
+                "title": "ARENA 0.4 — Backpropagation",
+                "author": "ARENA",
+                "url": "https://learn.arena.education/chapter0_fundamentals/04_backprop/",
+                "note": "Optional: build an autograd system from scratch."
+              }
+            ]
+          },
+          {
+            "id": "prep-agi-strategy",
+            "title": "AGI strategy: the big picture",
+            "badge": "Recommended",
+            "description": "Why many researchers think advanced AI could be one of the most important issues of our time, and what different actors are doing about it. Good to know before the technical material starts.",
+            "topics": [
+              "Progress and trends in AI capabilities",
+              "Possible risks from advanced AI",
+              "Approaches to making AI go well: technical, governance and strategic"
+            ],
+            "readings": [
+              {
+                "title": "AGI Strategy course",
+                "author": "BlueDot Impact",
+                "url": "https://bluedot.org/courses/agi-strategy",
+                "note": "About 25 hours, as an intensive (5 days) or part-time (5 weeks) cohort. Apply early; check bluedot.org for cohort dates."
+              },
+              {
+                "title": "Risks from power-seeking AI systems (problem profile)",
+                "author": "80,000 Hours",
+                "url": "https://80000hours.org/problem-profiles/artificial-intelligence/",
+                "note": "A self-paced alternative if you cannot join a cohort."
+              }
+            ]
+          }
+        ]
+      },
+      "objectives": [
+        "Explain in your own words why advanced AI could pose serious risks and why alignment is hard",
+        "Describe how modern language models are built and trained, from pretraining to RLHF",
+        "Use the core vocabulary of the field: specification gaming, goal misgeneralization, scalable oversight, interpretability, evaluations and AI control",
+        "Run and modify code from the ARENA curriculum in the monthly workshops",
+        "Read an AI safety paper and summarize its claim, method and limitations",
+        "Identify a research direction and programmes to apply to for summer research"
+      ],
+      "modules": [
+        {
+          "id": "why-ai-safety",
+          "title": "Why AI safety? Orientation and vocabulary",
+          "weeks": "Weeks 1–2 · 11–22 Jan",
+          "description": "What AI safety is, why people work on it, and a map of the field for the rest of the semester.",
+          "topics": [
+            "Capability trends and the case for concern",
+            "Alignment, misuse and structural risks",
+            "A map of research agendas",
+            "How the semester, workshops and BlueDot course fit together"
+          ],
+          "readings": [
+            {
+              "title": "Risks from power-seeking AI systems (problem profile)",
+              "author": "80,000 Hours",
+              "url": "https://80000hours.org/problem-profiles/artificial-intelligence/"
+            },
+            {
+              "title": "AISafety.info",
+              "url": "https://aisafety.info/",
+              "note": "Short answers to common questions; use it as a glossary throughout the semester."
+            },
+            {
+              "title": "Statement on AI Risk",
+              "author": "Center for AI Safety (2023)",
+              "url": "https://www.safe.ai/work/statement-on-ai-risk"
+            },
+            {
+              "title": "Managing extreme AI risks amid rapid progress",
+              "author": "Bengio et al. (2023)",
+              "url": "https://arxiv.org/abs/2310.17688"
+            }
+          ],
+          "assignments": [
+            {
+              "title": "Apply for BlueDot Technical AI Safety",
+              "description": "Apply for a cohort that runs during February–March.",
+              "url": "https://bluedot.org/courses/technical-ai-safety"
+            },
+            {
+              "title": "Hands-on workshop (weekend, 2–3 hours) — PyTorch warm-up (January)",
+              "description": "Revise the prerequisite material together and train a small network end to end. Doubles as a catch-up session for anyone who missed the refresher.",
+              "url": "https://learn.arena.education/chapter0_fundamentals/00_prereqs/"
+            }
+          ],
+          "resources": [
+            {
+              "title": "Introduction to AI Safety, Ethics, and Society",
+              "author": "Dan Hendrycks / Center for AI Safety",
+              "url": "https://www.aisafetybook.com/",
+              "note": "Free textbook; chapter 1 is a good overview."
+            }
+          ]
+        },
+        {
+          "id": "how-modern-ai-is-built",
+          "title": "How modern AI systems are built",
+          "weeks": "Weeks 3–4 · 25 Jan – 5 Feb",
+          "description": "Transformers and the language-model training pipeline, at the level needed to follow safety research.",
+          "topics": [
+            "Tokens, embeddings and attention",
+            "The transformer architecture",
+            "Pretraining, fine-tuning and post-training",
+            "Scaling and emergent capabilities"
+          ],
+          "readings": [
+            {
+              "title": "Transformers, the tech behind LLMs (video)",
+              "author": "3Blue1Brown",
+              "url": "https://www.3blue1brown.com/lessons/gpt"
+            },
+            {
+              "title": "The Illustrated Transformer",
+              "author": "Jay Alammar",
+              "url": "https://jalammar.github.io/illustrated-transformer/"
+            },
+            {
+              "title": "Training Language Models to Follow Instructions with Human Feedback",
+              "author": "Ouyang et al. (2022)",
+              "url": "https://arxiv.org/abs/2203.02155",
+              "note": "Read the introduction and the overview figure."
+            }
+          ],
+          "assignments": [
+            {
+              "title": "Hands-on workshop (weekend, 2–3 hours) — Build a transformer (February)",
+              "description": "Work through ARENA 1.1: build a transformer from scratch and load GPT-2 weights.",
+              "url": "https://learn.arena.education/chapter1_transformer_interp/01_transformers/"
+            }
+          ]
+        },
+        {
+          "id": "when-objectives-go-wrong",
+          "title": "When objectives go wrong",
+          "weeks": "Weeks 5–6 · 8–19 Feb",
+          "description": "Why it is hard to give AI systems the goals we intend, with concrete examples.",
+          "topics": [
+            "Specification gaming and reward hacking",
+            "Goal misgeneralization",
+            "Instrumental goals and power-seeking",
+            "Situational awareness and deceptive alignment"
+          ],
+          "readings": [
+            {
+              "title": "Specification gaming: the flip side of AI ingenuity",
+              "author": "Krakovna et al., Google DeepMind (2020)",
+              "url": "https://deepmind.google/discover/blog/specification-gaming-the-flip-side-of-ai-ingenuity/"
+            },
+            {
+              "title": "Goal Misgeneralization: Why Correct Specifications Aren't Enough for Correct Goals",
+              "author": "Shah et al. (2022)",
+              "url": "https://arxiv.org/abs/2210.01790"
+            },
+            {
+              "title": "The Alignment Problem from a Deep Learning Perspective",
+              "author": "Ngo, Chan & Mindermann (2022)",
+              "url": "https://arxiv.org/abs/2209.00626"
+            },
+            {
+              "title": "Concrete Problems in AI Safety",
+              "author": "Amodei et al. (2016)",
+              "url": "https://arxiv.org/abs/1606.06565"
+            }
+          ],
+          "assignments": [
+            {
+              "title": "Reading response",
+              "description": "Pick one example of specification gaming or goal misgeneralization. In half a page, explain what the designers intended, what the system learned, and why."
+            }
+          ],
+          "resources": [
+            {
+              "title": "ARENA 2.3.2 — Goal misgeneralization",
+              "author": "ARENA",
+              "url": "https://learn.arena.education/chapter2_rl/032_goal_misgen/",
+              "note": "Optional exercises."
+            }
+          ]
+        },
+        {
+          "id": "feedback-and-oversight",
+          "title": "Learning from feedback and scalable oversight",
+          "weeks": "Weeks 7–8 · 22 Feb – 5 Mar",
+          "description": "How human and AI feedback shape model behavior today, and how we might supervise systems more capable than us.",
+          "topics": [
+            "RLHF and reward models",
+            "Constitutional AI",
+            "Scalable oversight and AI safety via debate",
+            "Weak-to-strong generalization"
+          ],
+          "readings": [
+            {
+              "title": "Deep Reinforcement Learning from Human Preferences",
+              "author": "Christiano et al. (2017)",
+              "url": "https://arxiv.org/abs/1706.03741"
+            },
+            {
+              "title": "Constitutional AI: Harmlessness from AI Feedback",
+              "author": "Bai et al. (2022)",
+              "url": "https://arxiv.org/abs/2212.08073"
+            },
+            {
+              "title": "AI Safety via Debate",
+              "author": "Irving, Christiano & Amodei (2018)",
+              "url": "https://arxiv.org/abs/1805.00899"
+            },
+            {
+              "title": "Weak-to-Strong Generalization",
+              "author": "Burns et al. (2023)",
+              "url": "https://arxiv.org/abs/2312.09390"
+            }
+          ],
+          "assignments": [
+            {
+              "title": "Reading response",
+              "description": "Summarize one reading in a page. Identify one assumption the method relies on and one way it could fail."
+            }
+          ],
+          "resources": [
+            {
+              "title": "ARENA 2.4 — RLHF",
+              "author": "ARENA",
+              "url": "https://learn.arena.education/chapter2_rl/04_rlhf/",
+              "note": "Optional, for students comfortable with the workshops so far."
+            }
+          ]
+        },
+        {
+          "id": "interpretability",
+          "title": "Interpretability: looking inside models",
+          "weeks": "Weeks 9–11 · 8–26 Mar",
+          "description": "Techniques for understanding the internal representations and mechanisms of neural networks, and why that matters for safety.",
+          "topics": [
+            "Features, circuits and attention heads",
+            "Superposition",
+            "Sparse autoencoders",
+            "Probing and steering"
+          ],
+          "readings": [
+            {
+              "title": "Zoom In: An Introduction to Circuits",
+              "author": "Olah et al. (2020)",
+              "url": "https://distill.pub/2020/circuits/zoom-in/"
+            },
+            {
+              "title": "Toy Models of Superposition",
+              "author": "Elhage et al. (2022)",
+              "url": "https://transformer-circuits.pub/2022/toy_model/index.html",
+              "note": "Read the introduction and key results."
+            },
+            {
+              "title": "Scaling Monosemanticity",
+              "author": "Templeton et al. (2024)",
+              "url": "https://transformer-circuits.pub/2024/scaling-monosemanticity/index.html"
+            },
+            {
+              "title": "Mechanistic Interpretability for AI Safety — A Review",
+              "author": "Bereska & Gavves (2024)",
+              "url": "https://arxiv.org/abs/2404.14082"
+            }
+          ],
+          "assignments": [
+            {
+              "title": "Hands-on workshop (weekend, 2–3 hours) — Intro to mechanistic interpretability (March)",
+              "description": "Work through ARENA 1.2: use TransformerLens to extract activations, apply hooks and find important attention heads.",
+              "url": "https://learn.arena.education/chapter1_transformer_interp/02_intro_mech_interp/"
+            }
+          ],
+          "resources": [
+            {
+              "title": "Getting Started in Mechanistic Interpretability",
+              "author": "Neel Nanda",
+              "url": "https://www.neelnanda.io/mechanistic-interpretability/getting-started"
+            },
+            {
+              "title": "Interpretability in the Wild: a Circuit for Indirect Object Identification in GPT-2 small",
+              "author": "Wang et al. (2022)",
+              "url": "https://arxiv.org/abs/2211.00593"
+            }
+          ]
+        },
+        {
+          "id": "evaluations",
+          "title": "Evaluations and dangerous capabilities",
+          "weeks": "Weeks 12–13 · 29 Mar – 9 Apr",
+          "description": "How we measure what models can do and how they behave, and how evaluations inform deployment decisions.",
+          "topics": [
+            "Capability and propensity evaluations",
+            "Dangerous-capability evaluations",
+            "Agentic evaluations",
+            "Responsible scaling policies"
+          ],
+          "readings": [
+            {
+              "title": "Model Evaluation for Extreme Risks",
+              "author": "Shevlane et al. (2023)",
+              "url": "https://arxiv.org/abs/2305.15324"
+            },
+            {
+              "title": "METR",
+              "url": "https://metr.org/",
+              "note": "Browse one recent report on evaluating AI agents."
+            },
+            {
+              "title": "Anthropic's Responsible Scaling Policy",
+              "author": "Anthropic",
+              "url": "https://www.anthropic.com/news/anthropics-responsible-scaling-policy"
+            }
+          ],
+          "assignments": [
+            {
+              "title": "Hands-on workshop (weekend, 2–3 hours) — Run an LLM evaluation (April)",
+              "description": "Work through ARENA 3.1 and 3.3: design a small evaluation and run it with the Inspect framework.",
+              "url": "https://learn.arena.education/chapter3_llm_evals/01_intro_evals/"
+            }
+          ],
+          "resources": [
+            {
+              "title": "Inspect",
+              "author": "UK AI Security Institute",
+              "url": "https://inspect.aisi.org.uk/",
+              "note": "Open-source framework for LLM evaluations."
+            }
+          ]
+        },
+        {
+          "id": "robustness-and-deception",
+          "title": "Robustness, deception and misalignment case studies",
+          "weeks": "Weeks 14–15 · 12–23 Apr",
+          "description": "Evidence from current models about failures that safety training may not fix.",
+          "topics": [
+            "Jailbreaks and adversarial attacks",
+            "Backdoors and sleeper agents",
+            "Alignment faking",
+            "Emergent misalignment"
+          ],
+          "readings": [
+            {
+              "title": "Universal and Transferable Adversarial Attacks on Aligned Language Models",
+              "author": "Zou et al. (2023)",
+              "url": "https://arxiv.org/abs/2307.15043"
+            },
+            {
+              "title": "Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training",
+              "author": "Hubinger et al. (2024)",
+              "url": "https://arxiv.org/abs/2401.05566"
+            },
+            {
+              "title": "Alignment Faking in Large Language Models",
+              "author": "Greenblatt et al. (2024)",
+              "url": "https://arxiv.org/abs/2412.14093"
+            },
+            {
+              "title": "Emergent Misalignment: Narrow finetuning can produce broadly misaligned LLMs",
+              "author": "Betley et al. (2025)",
+              "url": "https://arxiv.org/abs/2502.17424"
+            }
+          ],
+          "assignments": [
+            {
+              "title": "Paper presentation",
+              "description": "In pairs, present one paper from this module in 10 minutes: the claim, the experiment, and what it does and does not show."
+            }
+          ],
+          "resources": [
+            {
+              "title": "ARENA 4.1 — Emergent misalignment",
+              "author": "ARENA",
+              "url": "https://learn.arena.education/chapter4_alignment_science/1_emergent_misalignment/",
+              "note": "Optional exercises."
+            }
+          ]
+        },
+        {
+          "id": "control-governance-strategy",
+          "title": "AI control, governance and strategy",
+          "weeks": "Weeks 16–17 · 26 Apr – 7 May",
+          "description": "Safety measures that work even if alignment fails, and the policy and institutional side of AI safety.",
+          "topics": [
+            "AI control and monitoring",
+            "Governance and policy approaches",
+            "Open problems across the field"
+          ],
+          "readings": [
+            {
+              "title": "AI Control: Improving Safety Despite Intentional Subversion",
+              "author": "Greenblatt et al. (2023)",
+              "url": "https://arxiv.org/abs/2312.06942"
+            },
+            {
+              "title": "Unsolved Problems in ML Safety",
+              "author": "Hendrycks et al. (2021)",
+              "url": "https://arxiv.org/abs/2109.13916"
+            },
+            {
+              "title": "Centre for the Governance of AI",
+              "url": "https://www.governance.ai/",
+              "note": "Browse one recent research piece."
+            }
+          ],
+          "resources": [
+            {
+              "title": "ARENA 3.5 — AI control",
+              "author": "ARENA",
+              "url": "https://learn.arena.education/chapter3_llm_evals/05_ai_control/",
+              "note": "Optional exercises."
+            }
+          ]
+        },
+        {
+          "id": "research-and-summer-pathways",
+          "title": "Research skills and summer pathways",
+          "weeks": "Weeks 18–20 · 10–28 May",
+          "description": "Turning breadth into a first project: choosing a question, reading strategically, and finding summer research opportunities.",
+          "topics": [
+            "Choosing a research question",
+            "Reading and replicating papers",
+            "Writing a short research proposal",
+            "Summer programmes, fellowships and careers"
+          ],
+          "readings": [
+            {
+              "title": "AI safety technical research (career review)",
+              "author": "80,000 Hours",
+              "url": "https://80000hours.org/career-reviews/ai-safety-researcher/"
+            },
+            {
+              "title": "80,000 Hours career guide",
+              "author": "80,000 Hours",
+              "url": "https://80000hours.org/career-guide/"
+            },
+            {
+              "title": "AI Alignment Forum",
+              "url": "https://www.alignmentforum.org/",
+              "note": "Where much current alignment research is discussed."
+            }
+          ],
+          "assignments": [
+            {
+              "title": "Hands-on workshop (weekend, 2–3 hours) — Mini research sprint (May)",
+              "description": "In small teams, extend one ARENA exercise or replicate a small result, and present it."
+            },
+            {
+              "title": "One-page research proposal",
+              "description": "Propose a summer project: the question, why it matters for safety, a first experiment, and two programmes or labs to apply to."
+            }
+          ],
+          "resources": [
+            {
+              "title": "ML Alignment & Theory Scholars (MATS)",
+              "url": "https://www.matsprogram.org/"
+            },
+            {
+              "title": "Supervised Program for Alignment Research (SPAR)",
+              "url": "https://sparai.org/"
+            },
+            {
+              "title": "Pivotal Research",
+              "url": "https://pivotal-research.org/"
+            },
+            {
+              "title": "ARENA",
+              "url": "https://arena.education/",
+              "note": "In-person research engineering programme built on the same curriculum as our workshops."
+            }
+          ]
+        }
+      ],
+      "additionalResources": [
+        {
+          "title": "ARENA curriculum",
+          "author": "ARENA",
+          "url": "https://learn.arena.education/",
+          "note": "Free hands-on exercises used in the workshops."
+        },
+        {
+          "title": "Technical AI Safety course",
+          "author": "BlueDot Impact",
+          "url": "https://bluedot.org/courses/technical-ai-safety"
+        },
+        {
+          "title": "AGI Strategy course",
+          "author": "BlueDot Impact",
+          "url": "https://bluedot.org/courses/agi-strategy"
+        },
+        {
+          "title": "80,000 Hours podcast",
+          "author": "80,000 Hours",
+          "url": "https://80000hours.org/podcast/",
+          "note": "Long-form interviews with AI safety researchers."
+        },
+        {
+          "title": "Introduction to AI Safety, Ethics, and Society",
+          "author": "Dan Hendrycks / Center for AI Safety",
+          "url": "https://www.aisafetybook.com/"
+        }
+      ]
+    },
+    {
+      "id": "semester-2",
+      "year": 2027,
+      "label": "Semester - Autumn 27",
+      "title": "Technical AI Safety",
+      "description": "Intermediate technical foundations.",
+      "objectives": [],
+      "modules": []
+    }
+  ]
+}

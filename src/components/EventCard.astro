@@ -1,0 +1,6 @@
+---
+import { formatEventDate, type Event } from '../lib/data';
+interface Props { event: Event }
+const { event } = Astro.props;
+---
+<article class="grid gap-3 border-t border-border py-6 sm:grid-cols-[10rem_1fr] sm:gap-8"><p class="text-sm font-medium text-accent-text"><time datetime={event.date}>{formatEventDate(event.date)}</time></p><div><h3 class="text-xl font-semibold">{event.title}</h3><p class="mt-2 max-w-2xl leading-relaxed text-muted">{event.summary}</p>{event.location && <p class="mt-3 text-sm text-muted">{event.location}</p>}{event.url && <p class="mt-3"><a class="link text-sm font-medium" href={event.url} target="_blank" rel="noopener noreferrer">Event details<span class="sr-only"> for {event.title} (opens in a new tab)</span> ↗</a></p>}</div></article>

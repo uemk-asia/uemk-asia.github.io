@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ActivityCard from '../../components/ActivityCard.astro';
+import Notice from '../../components/Notice.astro';
+import { getActivityGroups } from '../../lib/activities';
+const { all, current, planned, past } = await getActivityGroups();
+const sections = [{ title: 'Upcoming & ongoing', entries: current }, { title: 'Planned', entries: planned }, { title: 'Past activities', entries: past }];
+---
+<BaseLayout title="Activities" description="Explore announced and planned UEMK ASIA activities.">
+  <PageHeader eyebrow="Learn together" title="Activities" lead="A space for reading, discussion, and exploration across AI safety and alignment." />
+  <div class="container-page py-20">
+    {all.length === 0 ? <Notice title="Activities will appear here"><p>We are at an early stage and have not announced any activities yet. As plans are confirmed, this page will share the details.</p><p>Possible formats include reading groups, workshops, guest lectures, research discussions, student projects, and community events.</p><p>In the meantime, explore the <a class="link" href="/resources/">learning resources</a>.</p></Notice> : sections.map(({ title, entries }) => entries.length > 0 && <section class="mb-16 last:mb-0"><h2 class="text-3xl font-semibold">{title}</h2><div class="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{entries.map((activity) => <ActivityCard activity={activity} />)}</div></section>)}
+  </div>
+</BaseLayout>

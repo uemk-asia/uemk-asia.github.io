@@ -1,0 +1,156 @@
+---
+/**
+ * Layout for an individual profile page. Every section is driven by the
+ * person's Markdown frontmatter and only appears when it has content.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Avatar from './Avatar.astro';
+import ProfileList from './ProfileList.astro';
+import ProfileTimeline from './ProfileTimeline.astro';
+import { affiliationYears, educationStatusLabels, educationYears, primaryAffiliation, sortedAffiliations, sortedEducation, type Person } from '../lib/people';
+
+interface Props {
+  person: Person;
+  /** Whether the Markdown body has any content. */
+  hasBody: boolean;
+}
+
+const { person, hasBody } = Astro.props;
+const {
+  name,
+  role,
+  email,
+  interests = [],
+  projects = [],
+  publications = [],
+  awards = [],
+  talks = [],
+} = person.data;
+const links: Partial<Record<string, string>> = person.data.links ?? {};
+const primary = primaryAffiliation(person);
+const affiliations = sortedAffiliations(person);
+const education = sortedEducation(person);
+
+const linkLabels = { website: 'Website', github: 'GitHub', linkedin: 'LinkedIn', scholar: 'Google Scholar', orcid: 'ORCID' } as const;
+const externalLinks = (Object.keys(linkLabels) as (keyof typeof linkLabels)[])
+  .filter((key) => links[key])
+  .map((key) => ({ label: linkLabels[key], url: links[key]! }));
+
+const description =
+  person.data.description ??
+  [`${name} — ${role}.`, primary && `${primary.institution}.`].filter(Boolean).join(' ');
+
+// Sidebar timelines. Each row: institution, then title (position or degree),
+// then department or field, then years. Newest entries come first. A section only appears when the
+// Markdown provides entries for it.
+const timelines = [
+  {
+    id: 'affiliations',
+    title: 'Affiliations',
+    rows: affiliations.map((a) => ({
+      institution: a.institution,
+      title: a.position,
+      subtitle: a.department,
+      meta: affiliationYears(a),
+    })),
+  },
+  {
+    id: 'education',
+    title: 'Education',
+    rows: education.map((e) => ({
+      institution: e.institution,
+      title: e.degree,
+      subtitle: e.field,
+      meta: [educationYears(e), e.status && educationStatusLabels[e.status]].filter(Boolean).join(' · '),
+    })),
+  },
+].filter((timeline) => timeline.rows.length > 0);
+
+// Generic "titled item" lists share one rendering pattern.
+const lists = [
+  { id: 'projects', title: 'Projects', items: projects.map((p) => ({ title: p.title, url: p.url, meta: [p.year], detail: p.description })) },
+  { id: 'publications', title: 'Publications', items: publications.map((p) => ({ title: p.title, url: p.url, meta: [p.venue, p.year], detail: p.authors })) },
+  { id: 'talks', title: 'Talks', items: talks.map((t) => ({ title: t.title, url: t.url, meta: [t.event, t.year], detail: undefined })) },
+  { id: 'awards', title: 'Awards', items: awards.map((a) => ({ title: a.title, url: a.url, meta: [a.issuer, a.year], detail: undefined })) },
+]
+  .map((list) => ({ ...list, items: list.items.map(({ meta, ...item }) => ({ ...item, meta: meta.filter(Boolean).join(' · ') })) }))
+  .filter((list) => list.items.length > 0);
+---
+
+<BaseLayout title={name} description={description}>
+  <div class="container-page py-10 sm:py-14">
+    <a href="/people/" class="link text-sm font-medium"><span aria-hidden="true">←</span> Back to People</a>
+
+    <!-- Header -->
+    <header class="mt-8 flex flex-col gap-6 border-b border-border pb-10 sm:flex-row sm:items-center sm:gap-10">
+      <Avatar person={person} size={160} eager />
+      <div class="min-w-0">
+        <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">{name}</h1>
+        <p class="mt-3 text-lg font-medium text-accent-text">{role}</p>
+        {
+          primary && (
+            <p class="mt-1 text-muted">
+              {[primary.position, primary.institution].filter(Boolean).join(', ')}
+            </p>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="grid gap-12 pt-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
+      <!-- Main column: Markdown biography and optional lists -->
+      <div class="min-w-0 space-y-12">
+        {hasBody && <div class="prose-body profile-body"><slot /></div>}
+
+        {
+          interests.length > 0 && (
+            <section aria-labelledby="interests-heading">
+              <h2 id="interests-heading" class="text-2xl font-semibold">Interests</h2>
+              <ul class="mt-4 grid list-disc gap-x-10 gap-y-2 pl-5 leading-relaxed marker:text-accent-text sm:grid-cols-2">
+                {interests.map((interest) => (
+                  <li>{interest}</li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        {lists.map((list) => <ProfileList id={list.id} title={list.title} items={list.items} />)}
+
+        {
+          !hasBody && interests.length === 0 && lists.length === 0 && (
+            <p class="text-muted">A biography has not been added yet.</p>
+          )
+        }
+      </div>
+
+      <!-- Sidebar: affiliations, education and links -->
+      <aside class="space-y-10">
+        {timelines.map((timeline) => <ProfileTimeline id={timeline.id} title={timeline.title} rows={timeline.rows} />)}
+
+        {
+          (email || externalLinks.length > 0) && (
+            <section aria-labelledby="links-heading">
+              <h2 id="links-heading" class="font-sans text-sm font-semibold tracking-wide text-muted uppercase">Contact &amp; links</h2>
+              <ul class="mt-4 space-y-2">
+                {email && (
+                  <li>
+                    <a href={`mailto:${email}`} class="link break-all">{email}</a>
+                  </li>
+                )}
+                {externalLinks.map((link) => (
+                  <li>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer" class="link">
+                      {link.label}
+                      <span class="sr-only"> of {name} (opens in a new tab)</span> ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

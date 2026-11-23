@@ -1,0 +1,20 @@
+---
+// One page per Markdown file in src/content/people/ — no per-person pages needed.
+import { render } from 'astro:content';
+import ProfileLayout from '../../components/ProfileLayout.astro';
+import { getPeople, type Person } from '../../lib/people';
+
+export async function getStaticPaths() {
+  return (await getPeople()).map((person) => ({ params: { slug: person.id }, props: { person } }));
+}
+
+interface Props {
+  person: Person;
+}
+
+const { person } = Astro.props;
+const { Content } = await render(person);
+const hasBody = Boolean(person.body?.trim());
+---
+
+<ProfileLayout person={person} hasBody={hasBody}><Content /></ProfileLayout>

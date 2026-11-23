@@ -1,0 +1,20 @@
+---
+import type { Reading } from '../lib/data';
+interface Props { items: Reading[] }
+const { items } = Astro.props;
+---
+<ul class="space-y-2.5">
+  {items.map((item) => (
+    <li class="leading-relaxed">
+      {item.url ? (
+        <a href={item.url} target="_blank" rel="noopener noreferrer" class="link font-medium">
+          {item.title}<span class="sr-only"> (opens in a new tab)</span> ↗
+        </a>
+      ) : (
+        <span class="font-medium text-fg">{item.title}</span>
+      )}
+      {item.author && <span class="text-muted"> — {item.author}</span>}
+      {item.note && <span class="block text-sm text-muted">{item.note}</span>}
+    </li>
+  ))}
+</ul>

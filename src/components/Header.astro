@@ -1,0 +1,68 @@
+---
+import Wordmark from './Wordmark.astro';
+import { nav } from '../config/site';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => href === '/' ? path === '/' : path === href || path.startsWith(href);
+---
+
+<header class="sticky top-0 z-40 border-b border-border bg-bg/90 backdrop-blur supports-[backdrop-filter]:bg-bg/80">
+  <div class="container-page flex h-16 items-center justify-between gap-4">
+    <a href="/" class="rounded-sm" aria-label="UEMK ASIA home">
+      <Wordmark />
+    </a>
+
+    <!-- Desktop navigation -->
+    <nav aria-label="Main" class="hidden md:block">
+      <ul class="flex items-center gap-1">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+                class="rounded-md px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-fg aria-[current=page]:text-accent-text"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <!-- Mobile navigation: a native disclosure, works without JavaScript -->
+    <div class="flex items-center gap-1 md:hidden">
+      <details class="group">
+        <summary
+          class="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-md text-fg hover:bg-surface [&::-webkit-details-marker]:hidden"
+        >
+          <span class="sr-only">Menu</span>
+          <svg class="h-5 w-5 group-open:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+          <svg class="hidden h-5 w-5 group-open:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"></path>
+          </svg>
+        </summary>
+        <nav aria-label="Main" class="absolute inset-x-0 top-16 border-b border-border bg-bg shadow-sm">
+          <ul class="container-page flex flex-col py-3">
+            {
+              nav.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    aria-current={isCurrent(item.href) ? 'page' : undefined}
+                    class="block rounded-md px-2 py-3 text-base font-medium text-fg hover:bg-surface aria-[current=page]:text-accent-text"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,16 @@
+---
+/** A calm, bordered message block — used for empty states and notes. */
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title, class: extra } = Astro.props;
+---
+
+<div class:list={['rounded-lg border border-border bg-surface p-6 sm:p-8', extra]}>
+  {title && <h2 class="text-xl font-semibold">{title}</h2>}
+  <div class:list={['space-y-3 leading-relaxed text-muted', title && 'mt-3']}>
+    <slot />
+  </div>
+</div>

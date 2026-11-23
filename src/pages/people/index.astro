@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import PeopleSection from '../../components/PeopleSection.astro';
+import { peoplePage } from '../../lib/data';
+import { getPeopleSections } from '../../lib/people';
+const visible = (await getPeopleSections()).filter((section) => section.members.length > 0 || section.emptyPlaceholder);
+---
+<BaseLayout title={peoplePage.pageTitle} description="Meet the faculty advisors and organizers of UEMK ASIA.">
+  <PageHeader title={peoplePage.pageTitle} lead={peoplePage.introduction} compact />
+  <div class="container-page space-y-16 py-10 sm:py-12">{visible.length ? visible.map((section) => <PeopleSection section={section} />) : <p class="max-w-2xl border-t border-border pt-6 leading-relaxed text-muted">Our directory will appear here when the people and their roles are confirmed and they have agreed to be listed.</p>}</div>
+</BaseLayout>

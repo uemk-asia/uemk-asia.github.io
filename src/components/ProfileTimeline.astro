@@ -1,0 +1,33 @@
+---
+/** A sidebar timeline on a profile page (affiliations or education). */
+interface Row {
+  institution: string;
+  title?: string;
+  subtitle?: string;
+  meta?: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  rows: Row[];
+}
+
+const { id, title, rows } = Astro.props;
+const headingId = `${id}-heading`;
+---
+
+<section aria-labelledby={headingId}>
+  <h2 id={headingId} class="font-sans text-sm font-semibold tracking-wide text-muted uppercase">{title}</h2>
+  <ol class="mt-4 border-l border-border">
+    {rows.map((row) => (
+      <li class="relative pb-6 pl-5 last:pb-0">
+        <span aria-hidden="true" class="absolute top-1.5 -left-[5px] h-[9px] w-[9px] rounded-full border-2 border-bg bg-accent"></span>
+        <p class="font-medium text-fg">{row.institution}</p>
+        {row.title && <p class="mt-0.5 text-sm font-medium text-fg">{row.title}</p>}
+        {row.subtitle && <p class="mt-0.5 text-sm text-fg">{row.subtitle}</p>}
+        {row.meta && <p class="mt-0.5 text-sm text-muted">{row.meta}</p>}
+      </li>
+    ))}
+  </ol>
+</section>

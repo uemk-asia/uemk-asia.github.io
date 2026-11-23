@@ -1,0 +1,21 @@
+---
+import { statusLabels, type Activity } from '../lib/activities';
+
+interface Props {
+  status: Activity['data']['status'];
+}
+
+const { status } = Astro.props;
+
+const styles: Record<Props['status'], string> = {
+  upcoming: 'bg-accent text-accent-fg border-transparent',
+  ongoing: 'bg-accent-soft text-accent-text border-transparent',
+  planned: 'border-dashed border-muted text-muted',
+  completed: 'border-border text-muted',
+  cancelled: 'border-border text-muted line-through',
+};
+---
+
+<span class:list={['inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium', styles[status]]}>
+  {statusLabels[status]}
+</span>

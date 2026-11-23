@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SemesterSelector from '../components/SemesterSelector.astro';
+import CurriculumModule from '../components/CurriculumModule.astro';
+import ReadingList from '../components/ReadingList.astro';
+import { curriculum } from '../lib/data';
+
+const { semesters } = curriculum;
+---
+
+<BaseLayout title={curriculum.pageTitle} description={curriculum.description}>
+  <PageHeader eyebrow="Learning pathway" title={curriculum.pageTitle} lead={curriculum.description}>
+    {curriculum.notice && <p class="mt-6 max-w-2xl border-l-2 border-accent pl-4 text-sm leading-relaxed text-muted">{curriculum.notice}</p>}
+  </PageHeader>
+
+  <div class="container-page py-12 sm:py-16">
+    {
+      semesters.length === 0 ? (
+        <p class="max-w-2xl border-t border-border pt-6 leading-relaxed text-muted">
+          The curriculum is being prepared. Semesters will appear here once they are drafted.
+        </p>
+      ) : (
+        <>
+          <SemesterSelector semesters={semesters} />
+
+          {semesters.map((semester, index) => (
+            <section
+              id={semester.id}
+              data-semester-panel
+              role="tabpanel"
+              aria-labelledby={`tab-${semester.id}`}
+              tabindex="0"
+              hidden={index !== 0}
+              class="mt-10 scroll-mt-24 focus-visible:outline-offset-8"
+            >
+              <header class="border-b border-border pb-8">
+                <p class="eyebrow">{semester.label}</p>
+                <h2 class="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">{semester.title}</h2>
+                {semester.description && (
+                  <p class="mt-4 max-w-3xl text-lg leading-relaxed text-muted">{semester.description}</p>
+                )}
+                {semester.dates && (
+                  <p class="mt-4 text-sm font-medium text-fg"><span class="text-muted">Dates:</span> {semester.dates}</p>
+                )}
+              </header>
+
+              {semester.schedule.length > 0 && (
+                <div class="mt-8">
+                  <h3 class="text-xl font-semibold">How the semester runs</h3>
+                  <ul class="mt-4 grid gap-4 sm:grid-cols-2">
+                    {semester.schedule.map((session) => (
+                      <li class="rounded-lg border border-border p-5">
+                        <p class="font-medium text-fg">{session.title}</p>
+                        <p class="mt-1 text-sm text-accent-text">
+                          {[session.frequency, session.duration].filter(Boolean).join(' · ')}
+                        </p>
+                        {session.description && <p class="mt-2 text-sm leading-relaxed text-muted">{session.description}</p>}
+                      </li>
+                    ))}
+                  </ul>
+                  {semester.scheduleNote && <p class="mt-4 text-sm text-muted">{semester.scheduleNote}</p>}
+                </div>
+              )}
+
+              {semester.objectives.length > 0 && (
+                <div class="mt-8">
+                  <h3 class="text-xl font-semibold">Learning objectives</h3>
+                  <ul class="mt-4 max-w-3xl list-disc space-y-2 pl-5 leading-relaxed marker:text-accent-text">
+                    {semester.objectives.map((objective) => <li>{objective}</li>)}
+                  </ul>
+                </div>
+              )}
+
+              {semester.preparation && (
+                <div class="mt-10">
+                  <h3 class="text-xl font-semibold">{semester.preparation.title}</h3>
+                  {semester.preparation.timing && <p class="mt-1 text-sm font-medium text-accent-text">{semester.preparation.timing}</p>}
+                  {semester.preparation.description && (
+                    <p class="mt-3 max-w-3xl leading-relaxed text-muted">{semester.preparation.description}</p>
+                  )}
+                  <div class="mt-5 space-y-6">
+                    {semester.preparation.modules.map((module, i) => (
+                      <CurriculumModule module={module} label={`Preparation ${i + 1}`} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div class="mt-10">
+                <h3 class="text-xl font-semibold">Modules</h3>
+                {semester.modules.length > 0 ? (
+                  <div class="mt-5 space-y-6">
+                    {semester.modules.map((module, i) => (
+                      <CurriculumModule module={module} label={`Module ${i + 1}`} />
+                    ))}
+                  </div>
+                ) : (
+                  <p class="mt-4 max-w-2xl border-t border-border pt-5 leading-relaxed text-muted">
+                    Modules for {semester.label} are still being prepared. Please check back later.
+                  </p>
+                )}
+              </div>
+
+              {semester.additionalResources.length > 0 && (
+                <div class="mt-10">
+                  <h3 class="text-xl font-semibold">Additional resources</h3>
+                  <div class="mt-4"><ReadingList items={semester.additionalResources} /></div>
+                </div>
+              )}
+            </section>
+          ))}
+        </>
+      )
+    }
+  </div>
+</BaseLayout>
